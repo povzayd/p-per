@@ -51,9 +51,6 @@ git clone https://github.com/povzayd/pcap2img.git && cd pcap2img && python3 venv
 
 ## 💡 Interactive CLI Powered by prompt_toolkit
 
-- Enjoy advanced line editing, history, and emoji support in your prompts[1][5].
-- Easily extend the prompt with right prompts, toolbars, or even auto-completion[1][11].
-
 ---
 
 ## 🤝 Contributing
@@ -64,4 +61,5 @@ Feel free to fork and enhance with more features (e.g., progress bars, file prev
 
 ---
 
-> Made with ❤️ 
+> Made with ❤️
+
