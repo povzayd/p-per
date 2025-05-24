@@ -265,8 +265,71 @@ Motion detection is basic and may flag minor shifts
 
 OCR and face detection can add processing overhead
 
+---
+
+Here’s a detailed section you can include in your README or documentation to describe the motion heatmap feature:
 
 
+---
+
+Motion Heatmap
+
+The motion heatmap is a visual representation of movement detected across a sequence of frames. It highlights areas with consistent or intense activity, helping forensic analysts quickly identify regions of interest.
+
+How It Works
+
+1. Frame Differencing:
+The tool computes the difference between consecutive grayscale frames to detect pixel-level motion.
+
+
+2. Binary Threshold + Dilation:
+Changes are thresholded and dilated to emphasize moving regions.
+
+
+3. Accumulation:
+A mask is accumulated over time—each motion-detected area increases pixel intensity in a separate heatmap matrix.
+
+
+4. Color Mapping:
+After processing all frames, the accumulated motion matrix is converted into a heatmap using OpenCV’s COLORMAP_JET, turning motion intensity into a color gradient (blue = low, red = high activity).
+
+
+
+Output
+
+A file named *_heatmap.jpg is saved in the output directory when --motion-highlight is enabled.
+
+If `--preview-heatmap` is set, the heatmap is also displayed after rendering.
+
+
+Example Use Case
+```
+
+python videogen9.py ./security_images.zip --motion-highlight --preview-heatmap
+```
+This will:
+
+Draw motion boxes on the video frames
+
+Generate and preview a heatmap showing movement zones over time
+
+
+Interpretation
+
+• Red zones = high motion activity
+
+• Blue/green zones = minimal or no activity
+
+
+This is especially useful for:
+```
+Surveillance analysis
+
+Intruder detection
+
+Behavior monitoring in forensic investigations
+
+```
 ---
 
 Summary
