@@ -1,65 +1,61 @@
-# 🖼️ pcap2img
 
-A command-line tool to extract all embedded JPEG images from any pcap file.  
-Built with Python :)
----
 
-## ✨ Features
+STEP I
+JPEG Extraction from Binary Files [pcap2img.py]
 
-- 📂 Automatically creates an output directory for extracted images
-- 📸 Extracts all JPEG images found in the file (based on JPEG magic bytes)
-- 🛡️ Handles file errors gracefully with clear messages
+This script scans a binary or media file and extracts embedded JPEG images by identifying JPEG start (0xFFD8) and end (0xFFD9) markers using regular expressions.
 
----
+Features
 
-## 🚀 Getting Started
+Supports `.bin`, `.dat`, `.raw`, `.mp4`, `.avi`, `.mov`, `.jpg`, `.jpeg` files.
 
-### 1️⃣ Install Dependencies
+Extracts all embedded JPEG images and saves them in a dedicated folder.
 
-```bash
-pip install prompt_toolkit
+Uses `tqdm` for progress bars and `prompt_toolkit` for clean CLI interaction.
+
+Built-in logging and error handling.
+
+
+Requirements
 ```
+Python 3.6+
 
-### 2️⃣ Save the Script
+tqdm
 
-Clone this repo:
-
-```bash
-git clone https://github.com/povzayd/pcap2img.git && cd pcap2img && python3 venv venv1 && source venv1/bin/activate && pip install prompt_toolkit && python pcap2img.py
+prompt_toolkit
 
 ```
+Install dependencies using:
+```
+pip install tqdm prompt_toolkit
+```
+Usage
 
+Run the script directly:
+```
+python pcap2img.py
+```
+
+You'll be prompted to enter a file name:
+```
+
+🔍 Enter your file name:
+```
+
+Provide the path to your .bin, .dat, .raw, or media file. If JPEG signatures are found, extracted images will be saved as frame_XXXX.jpg inside a folder named after the input file (excluding extension).
+
+Example
+```
+$ python jpeg_extractor.py
+🔍 Enter your file name: disk_dump.bin
+
+📂 Output directory created: 'disk_dump'
+📸 Extracting images: 100%|████████████████████| 8/8
+✅ Success! Extracted 8 JPEG images to 'disk_dump'
+```
+Notes:
+
+The script does not validate JPEG integrity beyond header/footer signatures.
+
+Ideal for forensics, CTF challenges, or reverse engineering tasks.
 ---
-
-## 🕹️ Usage
-
-1. Run the script:
-
-    ```bash
-    python pcap2img.py
-    ```
-
-2. When prompted, enter the path to your binary file:
-
-    ```
-    🔍 Enter your file name: myfile.pcap
-    ```
-
-3. The tool will extract all JPEG images and save them in a new directory named after your file.
-
----
-
-## 💡 Interactive CLI Powered by prompt_toolkit
-
----
-
-## 🤝 Contributing
-
-Pull requests and suggestions welcome!  
-Feel free to fork and enhance with more features (e.g., progress bars, file previews).
-
-
----
-
-> Made with ❤️
-
