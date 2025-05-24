@@ -1,0 +1,12 @@
+tqdm
+prompt_toolkit
+pillow
+torch
+torchvision
+opencv-python-headless
+numpy
+opencv-python-headless
+numpy
+pytesseract
+#apt install tesseract-ocr
+#swap>8 didn't work on 5Gigs
