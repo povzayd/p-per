@@ -97,7 +97,7 @@ Usage
 Command-line Interface
 ```
 
-python3 pcap2img.py -i <input_file> [-o <output_dir>] [--zip] [--classify]
+python3 pcap2imgv2.py -i <input_file> [-o <output_dir>] [--zip] [--classify]
 ```
 Arguments
 
@@ -116,19 +116,19 @@ Example Commands
 
 Basic Extraction:
 ```
-python3 pcap2img.py -i traffic.pcap
+python3 pcap2imgv2.py -i traffic.pcap
 ```
 Extract and Zip:
 ```
-python3 pcap2img.py -i dump.bin --zip
+python3 pcap2imgv2.py -i dump.bin --zip
 ```
 Extract with AI Classification:
 ```
-python3 pcap2img.py -i memory_dump.raw --classify
+python3 pcap2imgv2.py -i memory_dump.raw --classify
 ```
 Custom Output Directory:
 ```
-python3 pcap2img.py -i data.pcap -o ./output_frames
+python3 pcap2imgv2.py -i data.pcap -o ./output_frames
 
 ```
 
@@ -192,9 +192,92 @@ Only extracts JPEG images (FFD8...FFD9) from raw data.
 Some corrupted frames may be extracted but fail AI classification.
 
 The classification is based on ImageNet, which may not be relevant for certain contexts (e.g., surveillance footage, malware dumps).
-
-
-
 ---
----
+
+videogen.py
+
+VideoGen is a powerful Python-based tool for converting a sequence of images (from a folder or ZIP archive) into a forensic-grade annotated video. It supports face anonymization, face detection, motion highlighting, timestamping, OCR-based metadata logging, and motion heatmap generation.
+
+Features
+
+Convert folders or ZIPs of images into MP4 video
+
+Automatic timestamp overlay from file metadata
+
+Face anonymization (Gaussian blur)
+
+Face detection with bounding boxes
+
+Motion change detection with optional heatmap generation
+
+OCR for text extraction and metadata logging (optional)
+
+CLI-friendly with multiple tagging options
+
+
+Requirements
+
+`Python 3.7+`
+
+pip install:
+```
+pip install opencv-python-headless pillow numpy pytesseract tqdm
+```
+
+Usage
+```
+python videogen.py <input_path> [OPTIONS]
+```
+Arguments
+```
+input_path – Folder or ZIP file containing images
+
+```
+Optional Flags
+
+Option	Description
+```
+--skip-ocr	Skip OCR and metadata logging to speed up processing
+--fps <int>	Set video frames per second (default: 24)
+--out <folder>	Output directory (default: current folder)
+--resolution WxH	Set output resolution (e.g., 1280x720)
+--face-anon	Anonymize faces using Gaussian blur
+--face-detection	Highlight detected faces with bounding boxes
+--motion-highlight	Detect and highlight moving regions across frames
+--preview-heatmap	Show a preview of the motion heatmap after rendering
+```
+
+Output
+
+*.mp4 – Compiled video file
+
+*_log.csv – Metadata and OCR results (unless skipped)
+
+*_heatmap.jpg – Visual heatmap of detected motion (if enabled)
+
+
+Example Commands
+
+Create a simple video from images in a folder:
+```
+python videogen.py ./frames
+```
+Anonymize faces and highlight motion with heatmap:
+```
+python videogen.py ./surveillance.zip --face-anon --motion-highlight --preview-heatmap
+```
+Skip OCR for speed:
+```
+python videogen.py ./evidence --skip-ocr
+```
+Set custom resolution and output location:
+```
+python videogen.py ./input_folder --resolution 1280x720 --out ./results
+```
+Notes
+
+Uses OpenCV's Haar cascades for face detection.
+
+Motion is detected by frame differencing with basic filtering and contour detection.
+
 
