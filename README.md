@@ -266,12 +266,6 @@ Motion detection is basic and may flag minor shifts
 OCR and face detection can add processing overhead
 
 ---
-
-Here’s a detailed section you can include in your README or documentation to describe the motion heatmap feature:
-
-
----
-
 Motion Heatmap
 
 The motion heatmap is a visual representation of movement detected across a sequence of frames. It highlights areas with consistent or intense activity, helping forensic analysts quickly identify regions of interest.
