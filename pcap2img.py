@@ -4,7 +4,7 @@ import logging
 from prompt_toolkit import PromptSession
 from tqdm import tqdm
 
-# Configure logging
+#Configure logging
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 logger = logging.getLogger(__name__)
 
@@ -31,7 +31,7 @@ def extract_jpeg_images(file_path):
     # Improved JPEG pattern (start with 0xFFD8 and end with 0xFFD9)
     jpeg_pattern = re.compile(b'\xff\xd8(?:.|\n)*?\xff\xd9')
     matches = jpeg_pattern.findall(data)
-
+    #didnt update to new one this works fine!!!:::
     if not matches:
         logger.info("❌ No JPEG images found in the file.")
         return
@@ -57,4 +57,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-                                                 
+                            
+                            #didnt update anything
+                                                    
