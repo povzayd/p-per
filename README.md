@@ -1,13 +1,10 @@
----
-
-Forensic Imaging and Video Reconstruction Toolkit aka p-per (peeper👀)
+# Forensic Imaging and Video Reconstruction Toolkit aka p-per (peeper👀)
 
 This toolkit is a unified suite of Python-based tools engineered for extracting visual evidence from raw binary files, PCAP captures, memory dumps, and more. It is ideal for digital forensic analysts, red/blue teamers, malware analysts, or CTF participants working on uncovering embedded image data and converting it into meaningful, analyzable video intelligence.
-
 The toolkit is modular, terminal-friendly, and supports AI-powered image classification, metadata logging, face anonymization, and motion analysis.
 
 ---
-Installation:
+#### Installation:
 1. Clone The Repo:
 ```
 git clone https://github.com/povzayd/p-per.git
@@ -25,113 +22,117 @@ python3 venv venv && source venv/bin/activate
 pip3 install -r requirements.txt
 ``` 
 5. Run The Required Tool.
-6. `pcap2img.py` & `videogen.py` are lightweight & don't use alot of resources. On the
-7. other hand `pcap2imgv2.py` utilizes alot of resources [In my case] :).
+6. `pcap2img.py` & `videogen.py` are lightweight & don't use alot of resources. On the other hand `pcap2imgv2.py` utilizes alot of resources [In my case] :).
 ---
-MODULE 1: JPEG Extraction from Binary Files – pcap2img.py
+## MODULE 1: JPEG Extraction from Binary Files – pcap2img.py
 
-Purpose:
+#### Purpose:
 
-This script performs a deep scan of binary or media files to recover embedded JPEG images. It works by identifying JPEG start (0xFFD8) and end (0xFFD9) markers in the binary data using regular expressions.
+This script performs a deep scan of binary or media files to recover embedded **JPEG images**. It works by identifying JPEG start (0xFFD8) and end (0xFFD9) markers in the binary data using regular expressions.
 
-Use Cases:
+#### Use Cases:
 
-Recovery of deleted or hidden image files from raw memory dumps
+*Recovery of deleted or hidden image files from raw memory dumps*
 
-Extracting evidence from file dumps in malware or ransomware cases
+*Extracting evidence from file dumps in malware or ransomware cases*
 
-CTF tasks involving steganography or binary analysis
-
-
-Key Features:
-
-Supports various binary and media formats: .bin, .dat, .raw, .mp4, .avi, .mov, .jpg, .jpeg
-
-Extracted images are saved in a clean, structured output directory
-
-Uses tqdm for visual progress bars
-
-Leverages prompt_toolkit for enhanced command-line interaction
-
-Logs all actions and handles exceptions gracefully
+*CTF tasks involving steganography, binary or pcap analysis*
 
 
-Requirements:
+#### Key Features:
+
+*Supports various binary and media formats: .bin, .dat, .raw, .mp4, .avi, .mov, .jpg, .jpeg*
+
+*Extracted images are saved in a clean, structured output directory*
+
+*Uses tqdm for visual progress bars*
+
+*Leverages prompt_toolkit for enhanced command-line interaction*
+
+*Logs all actions and handles exceptions gracefully*
+
+
+#### Requirements:
+`tqdm`
+`prompt_toolkit`
+##### Installation: 
 ```
 pip install tqdm prompt_toolkit
 ```
-Usage:
+##### Usage:
 ```
 python pcap2img.py
 ```
-You will be prompted:
+##### You will be prompted:
 ```
 🔍 Enter your file name:
 ```
-Output:
+##### Output:
 
 A folder named after the input file (without extension), containing all frame_XXXX.jpg files
 
 Each image is saved sequentially based on its offset in the binary
 
 
-Example Run:
+##### Example Run:
 ```
 $ python jpeg_extractor.py
-🔍 Enter your file name: disk_dump.bin
-📂 Output directory created: 'disk_dump'
+🔍 Enter your file name: wireshark-dump1.pcap
+📂 Output directory created: 'wireshark-dump1'
 📸 Extracting images: 100%|████████████████████| 8/8
-✅ Success! Extracted 8 JPEG images to 'disk_dump'
+✅ Success! Extracted 20 JPEG images to 'disk_dump'
 ```
-Limitations:
+#### Limitations:
 
 Does not validate JPEG file structure beyond the header and footer signatures
 
 May produce corrupted or incomplete files if JPEGs are fragmented
 
-
-
 ---
 
-MODULE 2: Advanced JPEG Extraction + AI Classification – pcap2imgv2.py
+## MODULE 2: Advanced JPEG Extraction + AI Classification – pcap2imgv2.py
 
-Purpose:
+#### Purpose:
 
-This is an enhanced version of pcap2img.py, supporting high-performance chunked reading for large files and AI-based classification of the extracted images using pretrained MobileNetV2.
+This is an enhanced version of pcap2img.py, supporting high-performance chunked reading for large files and AI-based classification of the extracted images using pretrained `MobileNetV2`.
 
-Ideal For:
+#### Ideal For:
 
-Analysts dealing with multi-gigabyte PCAPs or dumps
+*Analysts dealing with multi-gigabyte PCAPs or dumps*
 
-Automatic triage and tagging of image types
+*Automatic triage and tagging of image types*
 
-Prioritizing extracted data using AI prediction
-
-
-Key Features:
-
-Chunked binary parsing (1MB blocks) to reduce memory usage
-
-Optional AI classification (--classify) using MobileNetV2 from PyTorch’s torchvision.models
-
-Optional ZIP compression of output (--zip)
-
-Clean CLI interface with argparse and logging
-
-Customizable output directory and structured reporting
+*Prioritizing extracted data using AI prediction*
 
 
-Requirements:
+#### Key Features:
+
+*Chunked binary parsing (1MB blocks) to reduce memory usage*
+
+*Optional AI classification (--classify) using MobileNetV2 from PyTorch’s torchvision.models*
+
+*Optional ZIP compression of output (--zip)*
+
+*Clean CLI interface with argparse and logging*
+
+*Customizable output directory and structured reporting*
+
+#### Requirements:
+`torch`
+`torchvision`
+`pillow`
+`tqdm`
+##### Installation of requirements: 
 ```
 pip install torch torchvision pillow tqdm
 ```
-Optional: Use a CUDA-enabled PyTorch build for GPU acceleration.
+##### Optional: Use a CUDA-enabled PyTorch build for GPU acceleration.
 
-Usage:
+#### Usage:
 ```
 python3 pcap2imgv2.py -i <input_file> [-o <output_dir>] [--zip] [--classify]
 ```
-Command-Line Arguments:
+#### Command-Line Arguments:
 ```
 Argument        Description
 
@@ -141,7 +142,7 @@ Argument        Description
 --classify      Run AI classification on extracted images
 ```
 
-Example Runs:
+#### Example Runs:
 ```
 python3 pcap2imgv2.py -i traffic.pcap
 ```
@@ -169,59 +170,63 @@ Overall data size extracted
 Elapsed processing time
 
 ```
-Limitations:
+#### Limitations:
 
-Only supports JPEG recovery (FFD8 to FFD9)
+*Only supports JPEG recovery (FFD8 to FFD9)*
 
-ImageNet-trained classifier may mislabel specialized forensics content
+*ImageNet-trained classifier may mislabel specialized forensics content*
 
-Damaged frames may fail classification
-
-
+*Damaged frames may fail classification*
 
 ---
 
-MODULE 3: Forensic Video Generator – videogen.py
+## MODULE 3: Forensic Video Generator – videogen.py
 
-Purpose:
+#### Purpose:
 
 Converts a sequence of images (from folder or .zip) into a forensic-grade MP4 video with optional overlays including timestamps, face anonymization, OCR metadata, motion detection, and heatmap generation.
 
-Use Cases:
+#### Use Cases:
 
-Reconstructing surveillance sequences from recovered frames
+*Reconstructing surveillance sequences from recovered frames*
 
-Creating visual timelines from malware dump images
+*Creating visual timelines from malware dump images*
 
-Anonymizing human faces in sensitive image sequences
+*Anonymizing human faces in sensitive image sequences*
 
+#### Key Features:
 
-Key Features:
+*Converts images from folders or .zip archives into videos*
 
-Converts images from folders or .zip archives into videos
+*Timestamps auto-injected based on image metadata*
 
-Timestamps auto-injected based on image metadata
+*Gaussian blur for anonymizing faces*
 
-Gaussian blur for anonymizing faces
+*Bounding boxes around detected faces using Haar cascades*
 
-Bounding boxes around detected faces using Haar cascades
+*Motion detection with contour highlights*
 
-Motion detection with contour highlights
+*Optional heatmap visualization of detected motion*
 
-Optional heatmap visualization of detected motion
+*OCR-powered text extraction from frames and metadata logging*
 
-OCR-powered text extraction from frames and metadata logging
+#### Requirements:
+`pillow`
+`opencv-python-headless`
+`pillow` 
+`numpy` 
+`pytesseract` 
+`tqdm`
 
-
-Requirements:
+##### Installation Of Requirements
 ```
 pip install opencv-python-headless pillow numpy pytesseract tqdm
 ```
-Usage:
+#### Usage:
 ```
 python videogen.py <input_path> [OPTIONS]
 ```
-Supported CLI Options:
+#### Supported CLI Options:
 ```
 Flag    Description
 
@@ -235,7 +240,7 @@ Flag    Description
 --preview-heatmap       Show heatmap preview at the end
 
 ```
-Output Files:
+#### Output Files:
 ```
 *.mp4 – Reconstructed forensic video
 
@@ -244,7 +249,7 @@ Output Files:
 *_heatmap.jpg – Motion heatmap visualization
 
 ```
-Example Commands:
+#### Example Commands:
 ```
 python videogen.py ./frames
 ```
@@ -257,20 +262,21 @@ python videogen.py ./evidence --skip-ocr
 ```
 python videogen.py ./input_folder --resolution 1280x720 --out ./results
 ```
-Limitations:
+#### Limitations:
 
-Relies on consistent timestamp metadata for sequencing
+*Relies on consistent timestamp metadata for sequencing*
 
-Motion detection is basic and may flag minor shifts
+*Motion detection is basic and may flag minor shifts*
 
-OCR and face detection can add processing overhead
+*OCR and face detection can add processing overhead*
 
 ---
-Motion Heatmap
+<!---------------
+#### Motion Heatmap
 
 The motion heatmap is a visual representation of movement detected across a sequence of frames. It highlights areas with consistent or intense activity, helping forensic analysts quickly identify regions of interest.
 
-How It Works
+#### How It Works
 
 1. Frame Differencing:
 The tool computes the difference between consecutive grayscale frames to detect pixel-level motion.
@@ -289,7 +295,7 @@ After processing all frames, the accumulated motion matrix is converted into a h
 
 
 
-Output
+#### Output
 
 A file named *_heatmap.jpg is saved in the output directory when --motion-highlight is enabled.
 
@@ -325,8 +331,8 @@ Behavior monitoring in forensic investigations
 
 ```
 ---
-
-Summary
+---->
+#### Summary
 ```
 Tool    Purpose Core Tech       Highlights
 
@@ -334,10 +340,6 @@ pcap2img.py     Simple JPEG extractor   Regex + CLI     Prompt-driven, fast, lig
 pcap2imgv2.py   Advanced extractor + AI classifier      PyTorch, Argparse  Classify & zip support
 videogen.py     Image-to-video forensic builder OpenCV, Tesseract Anonymization, motion, metadata
 ```
-
-
 ---
 
->Made With 🪣                              
->Special Thanks To [@una55](https://github.com/una55)              
->Special Thanks To [@xbee9](https://github.com/xbee9)
+>Made With 💓                            
