@@ -69,7 +69,7 @@ def extract_jpegs_chunked(file_path, output_dir, zip_output=False, classify=Fals
                     buffer = buffer[end+2:]
 '''
 Now Write output....add zip option also for videogen.py
-
+!!works :)
 '''
                     output_file = os.path.join(output_dir, f"frame_{frame_count:04d}.jpg")
                     with open(output_file, 'wb') as out:
@@ -97,8 +97,6 @@ Now Write output....add zip option also for videogen.py
 
     return frame_count, image_sizes, predictions
 ##extraction part..........
-#import turtle
-#import torch
 def main():
     parser = argparse.ArgumentParser(description="Extract embedded JPEGs from a binary file.")
     parser.add_argument("-i", "--input", required=True, help="Input binary file")
