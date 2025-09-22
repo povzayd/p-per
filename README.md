@@ -1,6 +1,6 @@
 # Forensic Imaging and Video Reconstruction Toolkit aka p-per (peeper👀)
 
-This toolkit is a unified suite of Python-based tools engineered for extracting visual evidence from raw binary files, PCAP captures, memory dumps, and more. It is ideal for digital forensic analysts, red/blue teamers, malware analysts, or CTF participants working on uncovering embedded image data and converting it into meaningful, analyzable video intelligence.
+This toolkit is a unified suite of Python-based tools engineered for extracting visual evidence from raw binary files, `PCAP captures`, `memory dumps`, and more. It is ideal for digital forensic analysts, red/blue teamers, malware analysts, or CTF participants working on uncovering embedded image data and converting it into meaningful, analyzable video intelligence.
 The toolkit is modular, terminal-friendly, and supports AI-powered image classification, metadata logging, face anonymization, and motion analysis.
 
 ---
@@ -271,28 +271,23 @@ python videogen.py ./input_folder --resolution 1280x720 --out ./results
 *OCR and face detection can add processing overhead*
 
 ---
-<!---------------
 #### Motion Heatmap
 
 The motion heatmap is a visual representation of movement detected across a sequence of frames. It highlights areas with consistent or intense activity, helping forensic analysts quickly identify regions of interest.
 
 #### How It Works
 
-1. Frame Differencing:
+##### 1. Frame Differencing:
 The tool computes the difference between consecutive grayscale frames to detect pixel-level motion.
 
-
-2. Binary Threshold + Dilation:
+##### 2. Binary Threshold + Dilation:
 Changes are thresholded and dilated to emphasize moving regions.
 
-
-3. Accumulation:
+##### 3. Accumulation:
 A mask is accumulated over time—each motion-detected area increases pixel intensity in a separate heatmap matrix.
 
-
-4. Color Mapping:
+##### 4. Color Mapping:
 After processing all frames, the accumulated motion matrix is converted into a heatmap using OpenCV’s COLORMAP_JET, turning motion intensity into a color gradient (blue = low, red = high activity).
-
 
 
 #### Output
@@ -302,19 +297,18 @@ A file named *_heatmap.jpg is saved in the output directory when --motion-highli
 If `--preview-heatmap` is set, the heatmap is also displayed after rendering.
 
 
-Example Use Case
+###### Example Use Case
 ```
 
-python videogen9.py ./security_images.zip --motion-highlight --preview-heatmap
+python videogen.py ./security_images.zip --motion-highlight --preview-heatmap
 ```
-This will:
+###### This will:
 
-Draw motion boxes on the video frames
+*Draw motion boxes on the video frames*
 
-Generate and preview a heatmap showing movement zones over time
+*Generate and preview a heatmap showing movement zones over time*
 
-
-Interpretation
+###### Interpretation
 
 • Red zones = high motion activity
 
@@ -322,16 +316,14 @@ Interpretation
 
 
 This is especially useful for:
-```
-Surveillance analysis
 
-Intruder detection
+###### **Surveillance analysis**
 
-Behavior monitoring in forensic investigations
+- Intruder detection
 
-```
+- Behavior monitoring in forensic investigations
+
 ---
----->
 #### Summary
 ```
 Tool    Purpose Core Tech       Highlights
