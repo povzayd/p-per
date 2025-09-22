@@ -242,7 +242,7 @@ Flag    Description
 ```
 ##### Sample Output: 
 
-[Download demo video](https://github.com/povzayd/p-per/raw/main/demo/security-footage-1648933966395.mp4)
+[Download demo video](https://github.com/povzayd/p-per/raw/main/security-footage-1648933966395.mp4)
 
 #### Output Files:
 ```
