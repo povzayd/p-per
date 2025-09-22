@@ -240,6 +240,10 @@ Flag    Description
 --preview-heatmap       Show heatmap preview at the end
 
 ```
+##### Sample Output: 
+
+[Download demo video](https://github.com/povzayd/p-per/raw/main/demo/security-footage-1648933966395.mp4)
+
 #### Output Files:
 ```
 *.mp4 – Reconstructed forensic video
@@ -307,6 +311,7 @@ python videogen.py ./security_images.zip --motion-highlight --preview-heatmap
 *Draw motion boxes on the video frames*
 
 *Generate and preview a heatmap showing movement zones over time*
+![heatmap-test1](https://github.com/povzayd/p-per/blob/main/images_heatmap.jpg)
 
 ###### Interpretation
 
