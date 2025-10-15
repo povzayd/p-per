@@ -241,9 +241,7 @@ Flag    Description
 
 ```
 ##### Sample Output: 
-
-[Download demo video](https://github.com/povzayd/p-per/raw/main/security-footage-1648933966395.mp4)
-
+![](./security-footage-1648933966395.gif)
 #### Output Files:
 ```
 *.mp4 – Reconstructed forensic video
